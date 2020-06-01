@@ -29,24 +29,24 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-bluetooth-low-energy.elf \
+breath-analyzer.elf \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-bluetooth-low-energy.list \
+breath-analyzer.list \
 
 OBJCOPY_BIN += \
-bluetooth-low-energy.bin \
+breath-analyzer.bin \
 
 
 # All Target
-all: bluetooth-low-energy.elf secondary-outputs
+all: breath-analyzer.elf secondary-outputs
 
 # Tool invocations
-bluetooth-low-energy.elf: $(OBJS) $(USER_OBJS) /Users/venkatadineshjakkampudi/Documents/projects/bluetooth-low-energy/STM32F401RETX_FLASH.ld
-	arm-none-eabi-gcc -o "bluetooth-low-energy.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/venkatadineshjakkampudi/Documents/projects/bluetooth-low-energy/STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="bluetooth-low-energy.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+breath-analyzer.elf: $(OBJS) $(USER_OBJS) /Users/venkatadineshjakkampudi/Documents/projects/breath-analyzer/STM32F401RETX_FLASH.ld
+	arm-none-eabi-gcc -o "breath-analyzer.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/venkatadineshjakkampudi/Documents/projects/breath-analyzer/STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="breath-analyzer.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -55,13 +55,13 @@ default.size.stdout: $(EXECUTABLES)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-bluetooth-low-energy.list: $(EXECUTABLES)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "bluetooth-low-energy.list"
+breath-analyzer.list: $(EXECUTABLES)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "breath-analyzer.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-bluetooth-low-energy.bin: $(EXECUTABLES)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "bluetooth-low-energy.bin"
+breath-analyzer.bin: $(EXECUTABLES)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "breath-analyzer.bin"
 	@echo 'Finished building: $@'
 	@echo ' '
 
