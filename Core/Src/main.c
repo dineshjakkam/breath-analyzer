@@ -7,7 +7,6 @@
 
 void SystemClock_Config(void);
 
-ADC_HandleTypeDef hadc1;
 
 int main(void)
 {
@@ -25,16 +24,11 @@ int main(void)
 	MX_USART2_UART_Init();
 	MX_BlueNRG_MS_Init();
 
+	HAL_GPIO_WritePin(GreenLED_GPIO_Port, GreenLED_Pin, GPIO_PIN_SET);
 
 	while (1)
 	{
-		HAL_ADC_Start(&hadc1);
-		HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-		uint16_t raw = HAL_ADC_GetValue(&hadc1);
-		if(raw < raw_low)
-			raw_low = raw;
-		if(raw > raw_high)
-			raw_high = raw;
+		detect_alochol_levels();
 		MX_BlueNRG_MS_Process();
 	}
 }

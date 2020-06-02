@@ -26,21 +26,13 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
-/* USER CODE BEGIN Includes */
-
-/* USER CODE END Includes */
-
 extern ADC_HandleTypeDef hadc1;
 
-/* USER CODE BEGIN Private defines */
-
-/* USER CODE END Private defines */
-
 void MX_ADC1_Init(void);
+void detect_alochol_levels(void);
+void clear_detected_alcohol_levels(void);
 
-/* USER CODE BEGIN Prototypes */
-
-/* USER CODE END Prototypes */
+uint8_t get_no_of_beers(void);
 
 #ifdef __cplusplus
 }

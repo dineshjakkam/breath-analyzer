@@ -50,8 +50,7 @@ void MX_BlueNRG_MS_Init(void){
 			strlen(name), (uint8_t *)name);
 
 	//Initialize services here
-	addNucleoService();
-	addPbService();
+	add_breath_analyzer_service();
 }
 
 /*
@@ -131,12 +130,6 @@ void event_user_notify(void *pData){
 		{
 			evt_blue_aci *vendor_evt = (void *)hci_evt_pkt->data;
 			switch(vendor_evt->ecode){
-				case EVT_BLUE_GATT_READ_PERMIT_REQ:
-				{
-					evt_gatt_read_permit_req *read_pmt_req_evt = (void *)vendor_evt->data;
-					cb_on_read_request(read_pmt_req_evt->attr_handle);
-				}
-				break;
 				case EVT_BLUE_GATT_ATTRIBUTE_MODIFIED:
 				{
 					evt_gatt_attr_modified_IDB05A1 *attr_modified_evt = (void *)vendor_evt->data;

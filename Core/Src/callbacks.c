@@ -8,6 +8,7 @@
 #include "callbacks.h"
 #include "services.h"
 #include "app_ble.h"
+#include "adc.h"
 #include "bluenrg_gap_aci.h"
 #include "bluenrg_gatt_aci.h"
 
@@ -67,24 +68,6 @@ void cb_on_gap_disconnection_complete(void){
 
 
 /*
- *  @brief This is the call back called on a device
- * 			request to read the read characteristic
- *  		data
- *  @param handle Characteristic handle that is of read
- *  		type
- */
-void cb_on_read_request(uint16_t handle){
-	if(is_led_status_read_charac(handle))
-		service_read_request();
-
-	uint16_t connection_handle = get_connection_handle();
-
-	if(CONNECTED && connection_handle!=0){
-		aci_gatt_allow_read(connection_handle);
-	}
-}
-
-/*
  * @brief This is the call back called on attribute modification
  * 			from the connected device e.g., enabling notifications,
  * 			writing from the connected device etc..
@@ -94,25 +77,21 @@ void cb_on_read_request(uint16_t handle){
  * @retvalue None
  */
 void cb_on_attribute_modified(uint16_t handle, uint16_t len, uint8_t data[]){
-	if(is_pb_notification_attribute(handle)){
+	if(is_ba_notification_attribute(handle)){
 		if(data[0] == 0x01)
 			NOTIFICATION_ENABLED = TRUE;
 		else
 			NOTIFICATION_ENABLED = FALSE;
-
-	}
-
-	if(is_led_control_attribute(handle)){
-		change_led_state(len, data);
 	}
 }
 
 /*
  * @brief This is call back called through interrupt on push button pressed
- * 			On PB pressed notify the client through notification characteristic
+ * 	On PB pressed clear the max detected alcohol levels to enable for further
+ * 	reading
  */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-	set_notification_pending();
+	clear_detected_alcohol_levels();
 }
 
 
