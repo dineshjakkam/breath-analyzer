@@ -15,5 +15,5 @@ Lost track of how many beers you had? I can tell you..
 3. Configuring ADC peripherals
 
 ### See documentation for more details:
-1. <a href="docs/bluetooth-low-energy.pdf">Project report</a>
-2. <a href="docs/bluetooth-low-energy.txt">Configuration file</a>
+1. <a href="docs/breath-analyzer.pdf">Project report</a>
+2. <a href="docs/breath-analyzer.txt">Configuration file</a>
