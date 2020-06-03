@@ -58,3 +58,4 @@ dkms.conf
 *.xml
 Debug/*
 .DS_Store
+*/.DS_Store
